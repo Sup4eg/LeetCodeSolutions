@@ -1,4 +1,4 @@
-# C++ <a href="https://leetcode.com/">LeetCode</a> solutions
+# C++ <a href="https://leetcode.com/kirill3zoff/">LeetCode</a> solutions
 
 **LeetCode.cpp** is the main file with basic classes. Each class represents the solution from LeetCode web site
 
