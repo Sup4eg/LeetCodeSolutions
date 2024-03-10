@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <queue>
+
 using namespace std;
 
 struct ListNode {
@@ -154,6 +156,34 @@ public:
   }
 };
 
+class Solution225 {
+  public:
+  class MyStack {
+  public:
+	vector<int> stack;
+	MyStack() {
+	}
+
+	void push(int x) {
+	  stack.push_back(x);
+	}
+
+	int pop() {
+	  int last = stack.back();
+	  stack.pop_back();
+	  return last;
+	}
+
+	int top() {
+	  return stack.back();
+	}
+
+	bool empty() {
+	  return stack.empty();
+	}
+  };
+
+};
 
 class Solution237 {
 public:
@@ -163,7 +193,33 @@ public:
   }
 };
 
+class Solution362 {
+public:
+  class HitCounter {
+  public:
+	queue<int> queue1;
+	HitCounter() {
+	}
 
+	void hit(int timestamp) {
+	  queue1.push(timestamp);
+	}
+
+	int getHits(int timestamp) {
+	  int desregardTimestamp = timestamp > 300 ? timestamp - 300 : 0;
+	  int counter = 0;
+	  queue<int> temp = queue1;
+	  while (!queue1.empty() && queue1.front() <= timestamp) {
+		if (desregardTimestamp == 0 || queue1.front() > desregardTimestamp) {
+		  ++counter;
+		}
+		queue1.pop();
+	  }
+	  queue1 = temp;
+	  return counter;
+	}
+  };
+};
 
 class Solution1342 {
 public:
@@ -207,12 +263,17 @@ public:
 
 
 int main() {
-  Solution71 solution71;
-  //cout << solution71.simplifyPath("/home/") << endl;
-  //cout << solution71.simplifyPath("/../") << endl;
-  //cout << solution71.simplifyPath("/home//foo/") << endl;
-  //cout << solution71.simplifyPath("/a/./b/../../c/") << endl;
-  cout << solution71.simplifyPath("/a//b////c/d//././/..") << endl;
+  Solution362::HitCounter* hitCounter = new Solution362::HitCounter();
+  hitCounter->hit(1);       // hit at timestamp 1.
+  hitCounter->hit(2);       // hit at timestamp 2.
+  hitCounter->hit(3);       // hit at timestamp 3.
+  cout << hitCounter->getHits(4) << endl;   // get hits at timestamp 4, return 3.
+  hitCounter->hit(300);     // hit at timestamp 300.
+  cout << hitCounter->getHits(300) << endl; // get hits at timestamp 300, return 4.
+  cout << hitCounter->getHits(301) << endl; // get hits at timestamp 301, return 3.
+
+
+  delete hitCounter;
 
 
 }
