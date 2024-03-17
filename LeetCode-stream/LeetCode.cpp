@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <unordered_map>
 
 using namespace std;
 
@@ -60,6 +61,37 @@ public:
 	return result;
   }
 
+};
+
+class Solution3 {
+public:
+  int lengthOfLongestSubstring(string s) {
+	unordered_map<char, int> seen;
+
+	int begin = 0, end = 0;
+	int len = 0;
+
+	string ans = "";
+
+	while (end < s.length()) {
+	  char current = s[end];
+
+	  if (seen.count(current) == 1 && seen[current] >= begin) {
+		begin = seen[current] + 1;
+	  }
+	  else {
+		seen[current] = end;
+		end++;
+	  }
+
+	  if (end - begin > len) {
+		len = end - begin;
+		ans = s.substr(begin, end - begin);
+	  }
+	}
+
+	return len;
+  }
 };
 
 class Solution20 {
@@ -127,6 +159,73 @@ public:
   }
 };
 
+class Solution76 {
+public:
+  string minWindow(string s, string t) {
+	if (s.empty() || t.empty() || s.length() < t.length()) {
+	  return "";
+	}
+
+	std::vector<int> map(128, 0);
+	int count = t.length();
+	int start = 0, end = 0, minLen = INT_MAX, startIndex = 0;
+	for (char c : t) {
+	  map[c]++;
+	}
+
+	while (end < s.length()) {
+	  if (map[s[end++]]-- > 0) {
+		count--;
+	  }
+
+	  while (count == 0) {
+		if (end - start < minLen) {
+		  startIndex = start;
+		  minLen = end - start;
+		}
+
+		if (map[s[start++]]++ == 0) {
+		  count++;
+		}
+	  }
+	}
+
+	return minLen == INT_MAX ? "" : s.substr(startIndex, minLen);
+  }
+};
+
+class Solution159 {
+public:
+  int lengthOfLongestSubstringTwoDistinct(string s) {
+	if (s.length() == 0) return 0;
+
+	unordered_map<char, int> table;
+	int begin = 0, end = 0, len = 0, counter = 0;
+
+	while (end < s.length()) {
+	  char current = s[end];
+
+	  table[current]++;
+	  if (table[current] == 1) counter++;
+
+	  end++;
+	  while (counter > 2) {
+		char startchar = s[begin];
+
+		if (table.count(startchar) == 1) {
+		  table[startchar]--;
+		  if (table[startchar] == 0) counter--;
+		}
+
+		begin++;
+	  }
+
+	  len = max(len, end - begin);
+	}
+
+	return len;
+  }
+};
 
 class Solution136 {
 public:
@@ -139,7 +238,6 @@ public:
 	return sum_xor;
   }
 };
-
 
 class Solution141 {
 
@@ -163,7 +261,6 @@ public:
 	}
   }
 };
-
 
 class Solution203 {
 public:
@@ -250,6 +347,84 @@ public:
   };
 };
 
+class Solution438 {
+public:
+  vector<int> findAnagrams(string s, string p) {
+
+	vector<int> ans;
+
+	if (s.empty() || p.empty() || s.length() < p.length()) {
+	  return ans;
+	}
+
+	std::vector<int> map(128, 0);
+	int count = p.length();
+	int wordSize = p.length();
+	int start = 0, end = 0, startIndex = 0;
+	for (char c : p) {
+	  map[c]++;
+	}
+
+	while (end < s.length()) {
+	  if (map[s[end++]]-- > 0) {
+		count--;
+	  }
+
+	  while (count == 0) {
+		if (end - start == wordSize) {
+		  startIndex = start;
+		  ans.push_back(startIndex);
+		}
+
+		if (map[s[start++]]++ == 0) {
+		  count++;
+		}
+	  }
+	}
+
+	return ans;
+  }
+};
+
+class Solution567 {
+public:
+  bool checkInclusion(string s1, string s2) {
+	unordered_map<char, int> table;
+
+	for (char c : s1) {
+	  table[c]++;
+	}
+
+	int begin = 0, end = 0, counter = table.size();
+
+	while (end < s2.length()) {
+	  char endchar = s2[end];
+
+	  if (table.count(endchar) == 1) {
+		table[endchar]--;
+		if (table[endchar] == 0) counter--;
+	  }
+
+	  end++;
+
+	  while (counter == 0) {
+		if (end - begin == s1.length()) return true;
+
+		char startchar = s2[begin];
+
+		if (table.count(startchar) == 1) {
+		  table[startchar]++;
+		  if (table[startchar] > 0) counter++;
+		}
+
+		begin++;
+	  }
+	}
+
+	return false;
+  }
+};
+
 class Solution1342 {
 public:
   int numberOfSteps(int num) {
@@ -269,7 +444,6 @@ public:
 	return i;
   }
 };
-
 
 class Solution1365 {
 public:
@@ -292,17 +466,6 @@ public:
 
 
 int main() {
-  Solution362::HitCounter* hitCounter = new Solution362::HitCounter();
-  hitCounter->hit(1);       // hit at timestamp 1.
-  hitCounter->hit(2);       // hit at timestamp 2.
-  hitCounter->hit(3);       // hit at timestamp 3.
-  cout << hitCounter->getHits(4) << endl;   // get hits at timestamp 4, return 3.
-  hitCounter->hit(300);     // hit at timestamp 300.
-  cout << hitCounter->getHits(300) << endl; // get hits at timestamp 300, return 4.
-  cout << hitCounter->getHits(301) << endl; // get hits at timestamp 301, return 3.
-
-
-  delete hitCounter;
-
-
+  Solution567 solution567;
+  cout << solution567.checkInclusion("ab", "eidboaoo") << endl;
 }
