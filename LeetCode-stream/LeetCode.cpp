@@ -105,6 +105,34 @@ public:
     }
 };
 
+class Solution7
+{
+public:
+    static int reverse(int x)
+    {
+        const int MAX_LIMIT = 2147483647;
+        const int MIN_LIMIT = -2147483647 - 1;
+        int ans = 0, pow = 1, k = x;
+
+        while (k /= 10)
+        {
+            pow *= 10;
+        }
+
+        while (pow)
+        {
+            int lastN = x % 10;
+            if ((pow != 0 && lastN > MAX_LIMIT / pow) || (pow != 0 && lastN < MIN_LIMIT / pow)) return 0;
+            if ((ans > 0 && ans > MAX_LIMIT - pow * lastN) || (ans < 0 && ans < MIN_LIMIT - pow * lastN)) return 0;
+            ans += pow * lastN;
+            x /= 10;
+            pow /= 10;
+        }
+
+        return ans;
+    }
+};
+
 class Solution20
 {
 public:
@@ -523,23 +551,4 @@ public:
 
 int main()
 {
-    Solution1 solution1;
-    vector<int> nums{2, 7, 11, 15};
-    vector<int> nums2{3, 2, 4};
-    vector<int> nums3{3, 2, 3};
-
-    auto res = solution1.twoSum(nums, 9);
-    auto res2 = solution1.twoSum(nums2, 6);
-    auto res3 = solution1.twoSum(nums3, 6);
-
-    cout << res[0] << endl;
-    cout << res[1] << endl;
-    cout << "===============" << endl;
-
-    cout << res2[0] << endl;
-    cout << res2[1] << endl;
-
-    cout << "============" << endl;
-    cout << res3[0] << endl;
-    cout << res3[1] << endl;
 }
