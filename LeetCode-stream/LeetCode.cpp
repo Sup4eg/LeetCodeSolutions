@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <map>
 
 using namespace std;
 
@@ -15,6 +16,41 @@ struct ListNode
   ListNode() : val(0), next(nullptr) {}
   ListNode(int x) : val(x), next(nullptr) {}
   ListNode(int x, ListNode* next) : val(x), next(next) {}
+};
+
+class Contur {
+public:
+  static void dfs(vector<vector<int>>& grid, int r, int c, vector<vector<bool>>& visited) {
+	auto m = grid.size();
+	auto n = grid[0].size();
+
+	if (r < 0 || r >= m || c < 0 || c >= n) return;
+
+	if (visited[r][c]) return;
+	visited[r][c] = true;
+
+	cout << "Visiting (" << r << ", " << c << ") val=" << grid[r][c] << endl;
+
+	dfs(grid, r - 1, c, visited); //up
+	dfs(grid, r + 1, c, visited); //down
+	dfs(grid, r, c - 1, visited); //left
+	dfs(grid, r, c + 1, visited); //right
+  }
+
+  static void example() {
+	vector<vector<int>> grid = {
+	  {1, 2, 3},
+	  {4, 5, 6},
+	  {7, 8, 9}
+	};
+
+	auto m = grid.size();
+	auto n = grid[0].size();
+	vector<vector<bool>> visited(m, vector<bool>(n, false));
+
+
+	dfs(grid, 1, 1, visited);
+  }
 };
 
 class Solution1
@@ -173,6 +209,35 @@ public:
   }
 };
 
+class Solution10 {
+public:
+  bool isMatch(string s, string p) {
+	return dfs(0, 0, s, p);
+  }
+private:
+
+  map<pair<int, int>, bool> cache;
+
+  bool dfs(int i, int j, string& s, string& p) {
+	if (cache.count({ i, j })) return cache[{i, j}];
+	if (i >= s.length() && j >= p.length()) return true;
+	if (j >= p.length()) return false;
+
+	bool match = (i < s.length()) && (s[i] == p[j] || p[j] == '.');
+	if ((j + 1 < p.length()) && p[j + 1] == '*') {
+	  cache[{i, j}] = (dfs(i, j + 2, s, p) ||      //don't use *
+		(match && dfs(i + 1, j, s, p)));      //use *
+	  return cache[{i, j}];
+	}
+	if (match) {
+	  cache[{i, j}] = dfs(i + 1, j + 1, s, p);
+	  return cache[{i, j}];
+	}
+	cache[{i, j}] = false;
+	return false;
+  }
+};
+
 class Solution20
 {
 public:
@@ -273,6 +338,30 @@ public:
   }
 };
 
+class Solution72 {
+public:
+  int minDistance(string word1, string word2) {
+	vector<vector<int>> cache(word1.length() + 1, vector<int>(word2.length() + 1, INT_MAX));
+	for (int j = 0; j < word2.length() + 1; ++j) {
+	  cache[word1.length()][j] = word2.length() - j;
+	}
+	for (int i = 0; i < word1.length() + 1; ++i) {
+	  cache[i][word2.length()] = word1.length() - i;
+	}
+	for (int i = word1.length() - 1; i >= 0; --i) {
+	  for (int j = word2.length() - 1; j >= 0; --j) {
+		if (word1[i] == word2[j]) {
+		  cache[i][j] = cache[i + 1][j + 1];
+		}
+		else {
+		  cache[i][j] = 1 + min(cache[i + 1][j + 1], min(cache[i + 1][j], cache[i][j + 1]));
+		}
+	  }
+	}
+	return cache[0][0];
+  }
+};
+
 class Solution76
 {
 public:
@@ -356,6 +445,64 @@ public:
 	}
 	dp[i] = res;
 	return res;
+  }
+};
+
+class Solution97 {
+public:
+  bool isInterleave(string s1, string s2, string s3) {
+	if (s3.length() != s1.length() + s2.length()) return false;
+
+	vector<vector<bool>> dp(s1.length() + 1, vector<bool>(s2.length() + 1, false));
+	dp[s1.length()][s2.length()] = true;
+	for (int i = s1.length(); i >= 0; --i) {
+	  for (int j = s2.length(); j >= 0; --j) {
+		if (i < s1.length() && s1[i] == s3[i + j] && dp[i + 1][j]) dp[i][j] = true;
+		if (j < s2.length() && s2[j] == s3[i + j] && dp[i][j + 1]) dp[i][j] = true;
+	  }
+	}
+	return dp[0][0];
+
+	//dfs solution
+	//return dfs(s1, s2, s3, 0, 0);
+  }
+
+private:
+  map<pair<int, int>, bool> dp;
+
+  //k = i + j
+  bool dfs(string& s1, string& s2, string& s3, int i, int j) {
+	if (i == s1.length() && j == s2.length()) return true;
+	if (dp.find({ i, j }) != dp.end()) return dp[{i, j}];
+
+	if (i < s1.length() && s1[i] == s3[i + j] && dfs(s1, s2, s3, i + 1, j)) return true;
+	if (j < s2.length() && s2[j] == s3[i + j] && dfs(s1, s2, s3, i, j + 1)) return true;
+	dp[{i, j}] = false;
+	return false;
+  }
+
+};
+
+class Solution115 {
+public:
+  int numDistinct(string s, string t) {
+	return dfs(0, 0, s, t);
+  }
+
+private:
+  map<pair<int, int>, int> dp;
+
+  int dfs(int i, int j, string& s, string& t) {
+	if (j == t.length()) return 1;
+	if (i == s.length()) return 0;
+	if (dp.count({ i, j })) return dp[{i, j}];
+	if (s[i] == t[j]) {
+	  dp[{i, j}] = dfs(i + 1, j + 1, s, t) + dfs(i + 1, j, s, t);
+	}
+	else {
+	  dp[{i, j}] = dfs(i + 1, j, s, t);
+	}
+	return dp[{i, j}];
   }
 };
 
@@ -535,6 +682,28 @@ public:
   }
 };
 
+class Solution206 {
+public:
+  struct ListNode {
+	int val;
+	ListNode* next;
+	ListNode() : val(0), next(nullptr) {}
+	ListNode(int x) : val(x), next(nullptr) {}
+	ListNode(int x, ListNode* next) : val(x), next(next) {}
+  };
+  ListNode* reverseList(ListNode* head) {
+	ListNode* curr = head;
+	ListNode* prev = nullptr;
+	while (curr != nullptr) {
+	  ListNode* nextNode = curr->next;
+	  curr->next = prev;
+	  prev = curr;
+	  curr = nextNode;
+	}
+	return prev;
+  }
+};
+
 class Solution225
 {
 public:
@@ -585,6 +754,89 @@ public:
   }
 };
 
+class Solution309 {
+public:
+
+  // int maxProfit(vector<int>& prices) {
+	 //int sold = 0;
+	 //int hold = INT_MIN;
+	 //int rest = 0;
+
+	 //for (int i = 0; i < prices.size(); i++) {
+	 //  int prevSold = sold;
+	 //  sold = hold + prices[i];
+	 //  hold = max(hold, rest - prices[i]);
+	 //  rest = max(rest, prevSold);
+	 //}
+
+	 //return max(sold, rest);
+  // }
+
+
+  int maxProfit(vector<int>& prices) {
+
+	vector<vector<int>> dp(100005, vector<int>(2, -1));
+
+	//State: buying of selling
+	//if buy --> i + 1;
+	// if sell --> i + 2
+	int n = prices.size();
+
+	return dfs(0, 1, prices, dp);
+
+  }
+
+  int dfs(int i, int buying, vector<int>& prices, vector<vector<int>>& dp) {
+	if (i >= prices.size()) return 0;
+	if (dp[i][buying] != -1) {
+	  return dp[i][buying];
+	};
+
+	if (buying) {
+	  int buy = dfs(i + 1, buying - 1, prices, dp) - prices[i];
+	  int cooldown = dfs(i + 1, buying, prices, dp);
+	  dp[i][buying] = max(buy, cooldown);
+	}
+	else {
+	  int sell = dfs(i + 2, buying + 1, prices, dp) + prices[i];
+	  int cooldown = dfs(i + 1, buying, prices, dp);
+	  dp[i][buying] = max(sell, cooldown);
+	}
+	return dp[i][buying];
+  }
+};
+
+class Solution312 {
+public:
+  int maxCoins(vector<int>& nums) {
+	nums.insert(nums.begin(), 1);
+	nums.insert(nums.end(), 1);
+	int n = nums.size();
+
+	vector<vector<int>> dp(n, vector<int>(n, 0));
+	return dfs(1, nums.size() - 2, nums, dp);
+  }
+
+
+private:
+  int dfs(int l, int r, vector<int>& nums, vector<vector<int>>& dp) {
+	if (l > r) {
+	  return 0;
+	}
+	if (dp[l][r] > 0) {
+	  return dp[l][r];
+	}
+	dp[l][r] = 0;
+	for (int i = l; i < r + 1; ++i) {
+	  int coins = nums[l - 1] * nums[i] * nums[r + 1];
+	  coins += dfs(l, i - 1, nums, dp) + dfs(i + 1, r, nums, dp);
+	  dp[l][r] = max(dp[l][r], coins);
+	}
+	return dp[l][r];
+  }
+
+};
+
 class Solution322 {
 public:
   int coinChange(vector<int>& coins, int amount) {
@@ -599,6 +851,38 @@ public:
 	  }
 	}
 	return dp[amount] != amount + 1 ? dp[amount] : -1;
+  }
+};
+
+class Solution329 {
+private:
+  int ROWS = 0;
+  int COLS = 0;
+  map<pair<int, int>, int> dp;
+
+public:
+  int longestIncreasingPath(vector<vector<int>>& matrix) {
+	ROWS = matrix.size();
+	COLS = matrix[0].size();
+	int LIP = -1;
+	for (int r = 0; r < ROWS; ++r) {
+	  for (int c = 0; c < COLS; ++c) {
+		LIP = max(LIP, dfs(r, c, -1, matrix));
+	  }
+	}
+	return LIP;
+  }
+
+  int dfs(int r, int c, int prevVal, vector<vector<int>>& matrix) {
+	if (r < 0 || r == ROWS || c < 0 || c == COLS || matrix[r][c] <= prevVal) return 0;
+	if (dp.find({ r, c }) != dp.end()) return dp[{r, c}];
+	int res = 1;
+	res = max(res, 1 + dfs(r + 1, c, matrix[r][c], matrix));
+	res = max(res, 1 + dfs(r - 1, c, matrix[r][c], matrix));
+	res = max(res, 1 + dfs(r, c + 1, matrix[r][c], matrix));
+	res = max(res, 1 + dfs(r, c - 1, matrix[r][c], matrix));
+	dp[{r, c}] = res;
+	return res;
   }
 };
 
@@ -701,6 +985,94 @@ public:
   }
 };
 
+class Solution494 {
+
+private:
+  // {(index, total) -> # of ways}
+  map<pair<int, int>, int> dp;
+
+  int backtrack(vector<int>& nums, int target, int i, int total) {
+	if (i == nums.size()) return total == target ? 1 : 0;
+	if (dp.find({ i, total }) != dp.end()) return dp[{i, total}];
+	dp[{i, total}] = backtrack(nums, target, i + 1, total + nums[i]) + backtrack(nums, target, i + 1, total - nums[i]);
+	return dp[{i, total}];
+  }
+
+public:
+  int findTargetSumWays(vector<int>& nums, int target) {
+	int res = backtrack(nums, target, 0, 0);
+
+	return res;
+  }
+};
+
+class Solution518 {
+public:
+
+  //O(n*m)
+
+  int change(int amount, vector<int>& coins) {
+	//2d solution with O(n * m), memory O(n * m)
+	//vector<vector<int>> dp(amount + 1, vector<int>(coins.size() + 1, 0));
+	//dp[0] = vector<int>(coins.size() + 1, 1);
+
+	//
+	//for (int a = 1; a < amount + 1; ++a) {
+	//  for (int i = coins.size() - 1; i >= 0; --i) {
+	//	dp[a][i] = dp[a][i + 1];
+	//	if (a - coins[i] >= 0) {
+	//	  dp[a][i] += dp[a - coins[i]][i];
+	//	}
+	//  }
+	//}
+	//return dp[amount][0];
+
+
+	//2d solution with O(n * m), memory O (n)
+	vector<int> dp(amount + 1, 0);
+	dp[0] = 1;
+
+	for (int i = coins.size() - 1; i >= 0; --i) {
+	  vector<int> nextDP(amount + 1, 0);
+	  nextDP[0] = 1;
+	  for (int a = 1; a < amount + 1; ++a) {
+		nextDP[a] = dp[a];
+		if (a - coins[i] >= 0) {
+		  nextDP[a] += nextDP[a - coins[i]];
+		}
+	  }
+	  dp = nextDP;
+	}
+	return dp[amount];
+
+	//recursion solution
+	//return dfs(amount, coins, 0, 0);
+  }
+
+private:
+  map<pair<int, int>, int> dp;
+  //O(n * m), memory O(n * m)
+  int dfs(int amount, vector<int>& coins, int i, int sum) {
+	if (sum == amount) {
+	  return 1;
+	}
+	if (sum > amount) {
+	  return 0;
+	}
+	if (i == coins.size()) {
+	  return 0;
+	}
+	if (dp.find({ i, sum }) != dp.end()) {
+	  return dp[{i, sum}];
+	}
+
+	dp[{i, sum}] = dfs(amount, coins, i, sum + coins[i])
+	  + dfs(amount, coins, i + 1, sum);
+
+	return dp[{i, sum}];
+  }
+};
+
 class Solution567
 {
 public:
@@ -747,6 +1119,22 @@ public:
   }
 };
 
+class Solution643 {
+public:
+  double findMaxAverage(vector<int>& nums, int k) {
+	int cur = 0.f;
+	for (int i = 0; i < k; ++i) {
+	  cur += nums[i];
+	}
+	int ans = cur;
+	for (int i = k; i < nums.size(); ++i) {
+	  cur += nums[i] - nums[i - k];
+	  ans = max(ans, cur);
+	}
+	return (double)ans / k;
+  }
+};
+
 class Solution647 {
 public:
   int countSubstrings(string s) {
@@ -777,6 +1165,24 @@ public:
 	  cost[i] += min(cost[i + 1], cost[i + 2]);
 	}
 	return min(cost[0], cost[1]);
+  }
+};
+
+class Solution1143 {
+public:
+  int longestCommonSubsequence(string text1, string text2) {
+	vector<vector<int>>dp(text1.length() + 1, vector<int>(text2.length() + 1));
+	for (int i = text1.length() - 1; i >= 0; --i) {
+	  for (int j = text2.length() - 1; j >= 0; --j) {
+		if (text1[i] == text2[j]) {
+		  dp[i][j] = 1 + dp[i + 1][j + 1];
+		}
+		else {
+		  dp[i][j] = max(dp[i][j + 1], dp[i + 1][j]);
+		}
+	  }
+	}
+	return dp[0][0];
   }
 };
 
@@ -824,7 +1230,7 @@ public:
 
 int main()
 {
-  Solution62 solution62;
-  cout << solution62.uniquePaths(3, 2) << endl;
-
+  vector<int> nums{ 1,1,1,1,1 };
+  Solution494 solution494;
+  cout << solution494.findTargetSumWays(nums, 3) << endl;
 }
