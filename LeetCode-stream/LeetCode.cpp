@@ -1228,9 +1228,56 @@ public:
   }
 };
 
+
+class Solution1004 {
+public:
+  int longestOnes(vector<int>& nums, int k) {
+	int left = 0, curr = 0, ans = 0;
+	for (int right = 0; right < nums.size(); ++right) {
+	  if (nums[right] == 0) {
+		++curr;
+	  }
+	  while (curr > k) {
+		if (nums[left] == 0) {
+		  --curr;
+		}
+		++left;
+	  }
+	  ans = max(ans, right - left + 1);
+	}
+	return ans;
+  }
+};
+
+class Solution1480 {
+public:
+  vector<int> runningSum(vector<int>& nums) {
+	int n = nums.size();
+	vector<int> ans(n);
+	ans[0] = nums[0];
+	for (int i = 1; i < n; ++i) {
+	  ans[i] = nums[i] + ans[i - 1];
+	}
+	return ans;
+  }
+};
+
+class Solution1413 {
+public:
+  int minStartValue(vector<int>& nums) {
+	int total = nums[0];
+	int minn = nums[0];
+	for (int i = 1; i < nums.size(); ++i) {
+	  total += nums[i];
+	  minn = min(minn, total);
+	}
+	return minn < 0 ? abs(minn) + 1 : minn;
+  }
+};
+
 int main()
 {
-  vector<int> nums{ 1,1,1,1,1 };
-  Solution494 solution494;
-  cout << solution494.findTargetSumWays(nums, 3) << endl;
+  Solution1413 solution;
+  vector<int> nums{ -3,2,-3,4,2 };
+  solution.minStartValue(nums);
 }

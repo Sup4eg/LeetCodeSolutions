@@ -34,4 +34,5 @@ C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1125,10): warning 
 C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1164,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1175,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1176,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1255,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   LeetCode-stream.vcxproj -> C:\mine\projects\LeetCode-stream\x64\Debug\LeetCode-stream.exe
