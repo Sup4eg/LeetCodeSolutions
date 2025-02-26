@@ -106,40 +106,21 @@ public:
   }
 };
 
-class Solution3
-{
+class Solution3 {
 public:
-  int lengthOfLongestSubstring(string s)
-  {
-	unordered_map<char, int> seen;
-
-	int begin = 0, end = 0;
-	int len = 0;
-
-	string ans = "";
-
-	while (end < s.length())
-	{
-	  char current = s[end];
-
-	  if (seen.count(current) == 1 && seen[current] >= begin)
-	  {
-		begin = seen[current] + 1;
+  int lengthOfLongestSubstring(string s) {
+	unordered_map<char, int> fm;
+	int ans = 0;
+	int left = 0;
+	for (int right = 0; right < s.size(); ++right) {
+	  ++fm[s[right]];
+	  while (fm[s[right]] > 1) {
+		--fm[s[left]];
+		++left;
 	  }
-	  else
-	  {
-		seen[current] = end;
-		end++;
-	  }
-
-	  if (end - begin > len)
-	  {
-		len = end - begin;
-		ans = s.substr(begin, end - begin);
-	  }
+	  ans = max(ans, right - left + 1);
 	}
-
-	return len;
+	return ans;
   }
 };
 
@@ -738,6 +719,18 @@ public:
   }
 };
 
+class Solution268 {
+public:
+  int missingNumber(vector<int>& nums) {
+	int target = nums.size() * (nums.size() + 1) / 2;
+	int total = 0;
+	for (auto& n : nums) {
+	  total += n;
+	}
+	return target - total;
+  }
+};
+
 class Solution300 {
 public:
   int lengthOfLIS(vector<int>& nums) {
@@ -914,6 +907,20 @@ public:
 	  return counter;
 	}
   };
+};
+
+class Solution383 {
+public:
+  bool canConstruct(string ransomNote, string magazine) {
+	map<char, int> fm;
+	for (char& s : magazine) {
+	  ++fm[s];
+	}
+	for (char& s : ransomNote) {
+	  if (--fm[s] < 0) return false;
+	}
+	return true;
+  }
 };
 
 class Solution416 {
@@ -1168,6 +1175,21 @@ public:
   }
 };
 
+class Solution771 {
+public:
+  int numJewelsInStones(string jewels, string stones) {
+	unordered_map<char, int> fm;
+	int ans = 0;
+	for (char& s : stones) {
+	  ++fm[s];
+	}
+	for (char& j : jewels) {
+	  ans += fm[j];
+	}
+	return ans;
+  }
+};
+
 class Solution1143 {
 public:
   int longestCommonSubsequence(string text1, string text2) {
@@ -1228,7 +1250,6 @@ public:
   }
 };
 
-
 class Solution1004 {
 public:
   int longestOnes(vector<int>& nums, int k) {
@@ -1246,6 +1267,62 @@ public:
 	  ans = max(ans, right - left + 1);
 	}
 	return ans;
+  }
+};
+
+class Solution1133 {
+public:
+  int largestUniqueNumber(vector<int>& nums) {
+	unordered_map<int, int> fm;
+	for (auto& n : nums) {
+	  ++fm[n];
+	}
+	int largestUnique = -1;
+	for (auto& pair : fm) {
+	  if (pair.second == 1 && pair.first > largestUnique) {
+		largestUnique = pair.first;
+	  }
+	}
+	return largestUnique;
+  }
+};
+
+class Solution1189 {
+public:
+  int maxNumberOfBalloons(string text) {
+	int ans = text.size();
+	unordered_map<char, int> fm{
+	  {'b', 0}, //1 2 3
+	  {'a', 0}, //1 2 3
+	  {'l', 0}, //2 4 6
+	  {'o', 0}, //2 4 6
+	  {'n', 0}  //1 2 3
+	};
+	for (auto& s : text) {
+	  if (fm.find(s) != fm.end()) {
+		++fm[s];
+	  }
+	}
+	fm['l'] /= 2;
+	fm['o'] /= 2;
+	for (auto& n : fm) {
+	  if (n.second < ans) ans = n.second;
+	}
+	return ans;
+  }
+};
+
+class Solution1426 {
+public:
+  int countElements(vector<int>& arr) {
+	unordered_set<int> nums(arr.begin(), arr.end());
+	int count = 0;
+	for (auto& n : arr) {
+	  if (nums.find(n + 1) != nums.end()) {
+		++count;
+	  }
+	}
+	return count;
   }
 };
 
@@ -1275,9 +1352,77 @@ public:
   }
 };
 
+class Solution1832 {
+public:
+  bool checkIfPangram(string sentence) {
+	unordered_set<char> alpha(sentence.begin(), sentence.end());
+	return alpha.size() == 26;
+  }
+};
+
+class Solution2090 {
+public:
+  vector<long> runningSum(vector<int>& nums) {
+	int n = nums.size();
+	vector<long> ans(n);
+	ans[0] = nums[0];
+	for (int i = 1; i < n; ++i) {
+	  ans[i] = nums[i] + ans[i - 1];
+	}
+	return ans;
+  }
+
+  vector<int> getAverages(vector<int>& nums, int k) {
+	vector<long> sums = runningSum(nums);
+	vector<int> ans(nums.size());
+	int n = nums.size();
+	for (int i = 0; i < n; ++i) {
+	  if (i - k < 0 || i + k > n - 1) {
+		ans[i] = -1;
+	  }
+	  else {
+		long left = sums[i] - sums[i - k] + nums[i - k];
+		long right = sums[k + i] - sums[i];
+		ans[i] = (left + right) / (k * 2 + 1);
+	  }
+	}
+	return ans;
+  }
+};
+
+class Solution2225 {
+public:
+  vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+	unordered_map<int, int> m;
+	vector<vector<int>> ans;
+	ans.reserve(2);
+	vector<int> no_lose;
+	vector<int> lose1;
+	for (auto& stat : matches) {
+	  if (m.find(stat[0]) == m.end()) {
+		m[stat[0]] = 0;
+	  }
+	  ++m[stat[1]];
+	}
+	for (auto& n : m) {
+	  if (n.second == 0) {
+		no_lose.push_back(n.first);
+	  }
+	  else if (n.second == 1) {
+		lose1.push_back(n.first);
+	  }
+	}
+	sort(no_lose.begin(), no_lose.end());
+	sort(lose1.begin(), lose1.end());
+	ans.push_back(no_lose);
+	ans.push_back(lose1);
+	return ans;
+  }
+};
+
+
 int main()
 {
-  Solution1413 solution;
-  vector<int> nums{ -3,2,-3,4,2 };
-  solution.minStartValue(nums);
+  Solution3 solution;
+  cout << solution.lengthOfLongestSubstring("abcabcbb") << endl;
 }
