@@ -464,6 +464,89 @@ private:
 
 };
 
+struct TreeNode {
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
+};
+
+class Solution103 {
+public:
+  vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+	vector<vector<int>> ans;
+	if (root == nullptr) return ans;
+	bool lvlFlag = true;
+
+	queue<TreeNode*> queue;
+	queue.push(root);
+
+	while (!queue.empty()) {
+	  int nodesInCurrentLevel = queue.size();
+	  vector<int> lvlValues;
+	  lvlValues.reserve(nodesInCurrentLevel);
+
+	  for (int i = 0; i < nodesInCurrentLevel; ++i) {
+		TreeNode* node = queue.front();
+		queue.pop();
+		lvlValues.push_back(node->val);
+
+		if (node->left) {
+		  queue.push(node->left);
+		}
+
+		if (node->right) {
+		  queue.push(node->right);
+		}
+	  }
+	  if (!lvlFlag) {
+		reverse(lvlValues.begin(), lvlValues.end());
+	  }
+	  lvlFlag = !lvlFlag;
+	  ans.push_back(lvlValues);
+	}
+	return ans;
+  }
+};
+
+class Solution111 {
+public:
+  int minDepth(TreeNode* root) {
+	if (root == nullptr) return 0;
+
+	if (!root->left) {
+	  return 1 + minDepth(root->right);
+	}
+	else if (!root->right) {
+	  return 1 + minDepth(root->left);
+	}
+
+	int left = minDepth(root->left);
+	int right = minDepth(root->right);
+	return min(left, right) + 1;
+  }
+};
+
+class Solution543 {
+public:
+  int diameterOfBinaryTree(TreeNode* root) {
+	int diameter = 0;
+	dfs(root, diameter);
+	return diameter;
+  }
+
+private:
+  int dfs(TreeNode* root, int& diameter) {
+	if (!root) return 0;
+	int leftHeight = dfs(root->left, diameter);
+	int rightHeight = dfs(root->right, diameter);
+	diameter = max(diameter, leftHeight + rightHeight);
+	return max(leftHeight, rightHeight) + 1;
+  }
+};
+
 class Solution115 {
 public:
   int numDistinct(string s, string t) {
@@ -1312,6 +1395,38 @@ public:
   }
 };
 
+class Solution1302 {
+public:
+  int deepestLeavesSum(TreeNode* root) {
+	queue<TreeNode*> queue;
+	queue.push(root);
+	int sum = 0;
+
+	while (!queue.empty()) {
+	  int nodesInCurrentLevel = queue.size();
+
+	  for (int i = 0; i < nodesInCurrentLevel; ++i) {
+		TreeNode* node = queue.front();
+		sum += node->val;
+		queue.pop();
+
+
+		if (node->left) {
+		  queue.push(node->left);
+		}
+
+		if (node->right) {
+		  queue.push(node->right);
+		}
+	  }
+	  if (!queue.empty()) {
+		sum = 0;
+	  }
+	}
+	return sum;
+  }
+};
+
 class Solution1426 {
 public:
   int countElements(vector<int>& arr) {
@@ -1423,6 +1538,6 @@ public:
 
 int main()
 {
-  Solution3 solution;
-  cout << solution.lengthOfLongestSubstring("abcabcbb") << endl;
+  Solution103 solution;
+  solution.zigzagLevelOrder(nullptr);
 }
