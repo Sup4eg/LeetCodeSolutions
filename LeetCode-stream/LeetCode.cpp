@@ -18,6 +18,15 @@ struct ListNode
   ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
 
+struct TreeNode {
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
+};
+
 class Contur {
 public:
   static void dfs(vector<vector<int>>& grid, int r, int c, vector<vector<bool>>& visited) {
@@ -187,6 +196,41 @@ public:
 	}
 
 	return ans;
+  }
+};
+
+class Solution17 {
+public:
+  unordered_map<char, vector<char>> mp{
+	  {'2', { 'a', 'b', 'c' }},
+	  { '3', {'d', 'e', 'f'} },
+	  { '4', {'g', 'h', 'i'} },
+	  { '5', {'j', 'k', 'l'} },
+	  { '6', {'m', 'n', 'o'} },
+	  { '7', {'p', 'q', 'r', 's'} },
+	  { '8', {'t', 'u', 'v'} },
+	  { '9', {'w', 'x', 'y', 'z'} }
+  };
+
+  vector<string> letterCombinations(string digits) {
+	vector<string> ans;
+	string curr;
+	if (digits.empty()) return ans;
+	backtracking(curr, ans, digits, 0);
+	return ans;
+  }
+private:
+  void backtracking(string& curr, vector<string>& ans, string& digits, int i) {
+	if (i >= digits.size()) {
+	  ans.push_back(curr);
+	  return;
+	}
+	char n = digits[i];
+	for (char j : mp[n]) {
+	  curr += j;
+	  backtracking(curr, ans, digits, i + 1);
+	  curr.pop_back();
+	}
   }
 };
 
@@ -462,15 +506,6 @@ private:
 	return false;
   }
 
-};
-
-struct TreeNode {
-  int val;
-  TreeNode* left;
-  TreeNode* right;
-  TreeNode() : val(0), left(nullptr), right(nullptr) {}
-  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-  TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
 class Solution103 {
@@ -811,6 +846,31 @@ public:
 	  total += n;
 	}
 	return target - total;
+  }
+};
+
+class Solution270 {
+public:
+  int ans = INT_MAX;
+  int closestValue(TreeNode* root, double target) {
+	if (root == nullptr) {
+	  return ans;
+	}
+	double val1 = abs(root->val - target);
+	double val2 = abs(ans - target);
+	if (val1 < val2) {
+	  ans = root->val;
+	}
+	else if (val1 - val2 < 0.001) {
+	  ans = min(ans, root->val);
+	}
+	if (root->val > target) {
+	  closestValue(root->left, target);
+	}
+	else {
+	  closestValue(root->right, target);
+	}
+	return ans;
   }
 };
 
@@ -1247,6 +1307,16 @@ public:
   }
 };
 
+class Solution701 {
+public:
+  TreeNode* insertIntoBST(TreeNode* root, int val) {
+	if (!root) return new TreeNode(val);
+	if (val > root->val) root->right = insertIntoBST(root->right, val);
+	else root->left = insertIntoBST(root->left, val);
+	return root;
+  }
+};
+
 class Solution746 {
 public:
   static int minCostClimbingStairs(vector<int>& cost) {
@@ -1270,6 +1340,30 @@ public:
 	  ans += fm[j];
 	}
 	return ans;
+  }
+};
+
+class Solution797 {
+public:
+  vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+	vector<vector<int>> ans;
+	vector<int> curr;
+	curr.push_back(0);
+	backtracking(curr, ans, graph, 0);
+	return ans;
+  }
+
+private:
+  void backtracking(vector<int>& curr, vector<vector<int>>& ans, vector<vector<int>>& graph, int p) {
+
+	for (int i = 0; i < graph[p].size(); ++i) {
+	  curr.push_back(graph[p][i]);
+	  backtracking(curr, ans, graph, graph[p][i]);
+	  curr.pop_back();
+	}
+	if (curr.back() == graph.size() - 1) {
+	  ans.push_back(curr);
+	}
   }
 };
 
@@ -1538,6 +1632,7 @@ public:
 
 int main()
 {
-  Solution103 solution;
-  solution.zigzagLevelOrder(nullptr);
+  Solution17 solution;
+  vector<string> ans = solution.letterCombinations("2");
+  cout << "here" << endl;
 }

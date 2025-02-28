@@ -1,45 +1,44 @@
 ﻿  LeetCode.cpp
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(131,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(327,46): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(327,46): warning C4267:         with
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(327,46): warning C4267:         [
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(327,46): warning C4267:             _Ty=int
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(327,46): warning C4267:         ]
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(330,46): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(330,46): warning C4267:         with
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(330,46): warning C4267:         [
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(330,46): warning C4267:             _Ty=int
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(330,46): warning C4267:         ]
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(332,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(333,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(357,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(394,13): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(402,13): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(404,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(439,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(440,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(486,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(509,12): warning C4552: '!=': result of expression not used
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(594,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(810,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(824,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(861,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(892,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(895,28): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(943,20): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(944,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1019,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1046,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1047,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1127,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1180,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1217,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1256,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1282,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1283,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1378,10): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1408,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1449,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1483,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1495,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(140,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(370,46): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(370,46): warning C4267:         with
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(370,46): warning C4267:         [
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(370,46): warning C4267:             _Ty=int
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(370,46): warning C4267:         ]
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(373,46): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(373,46): warning C4267:         with
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(373,46): warning C4267:         [
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(373,46): warning C4267:             _Ty=int
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(373,46): warning C4267:         ]
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(375,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(376,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(400,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(437,13): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(445,13): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(447,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(482,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(483,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(521,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(626,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(842,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(881,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(918,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(949,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(952,28): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1000,20): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1001,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1076,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1103,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1104,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1184,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1237,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1274,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1323,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1373,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1374,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1469,10): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1499,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1540,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1574,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\mine\projects\LeetCode-stream\LeetCode-stream\LeetCode.cpp(1586,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   LeetCode-stream.vcxproj -> C:\mine\projects\LeetCode-stream\x64\Debug\LeetCode-stream.exe
