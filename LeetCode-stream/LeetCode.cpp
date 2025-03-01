@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <numeric>
 #include <map>
+#include <stack>
 
 using namespace std;
 
@@ -286,6 +287,36 @@ public:
 	  }
 	}
 	return stack.empty();
+  }
+};
+
+class Solution22 {
+public:
+  vector<string> generateParenthesis(int n) {
+	vector<string> ans;
+	string curr;
+	backtracking(curr, ans, 0, 0, n);
+	return ans;
+  }
+
+private:
+  void backtracking(string& curr, vector<string>& ans, int o, int c, int& n) {
+	if (curr.length() == 2 * n) {
+	  ans.push_back(curr);
+	  return;
+	}
+
+	if (o < n) {
+	  curr += "(";
+	  backtracking(curr, ans, o + 1, c, n);
+	  curr.pop_back();
+	}
+
+	if (o > c) {
+	  curr += ")";
+	  backtracking(curr, ans, o, c + 1, n);
+	  curr.pop_back();
+	}
   }
 };
 
@@ -1632,7 +1663,6 @@ public:
 
 int main()
 {
-  Solution17 solution;
-  vector<string> ans = solution.letterCombinations("2");
-  cout << "here" << endl;
+  Solution22 solution;
+  vector<string> ans = solution.generateParenthesis(3);
 }
